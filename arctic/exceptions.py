@@ -63,3 +63,8 @@ class AsyncArcticException(ArcticException):
 
 class RequestDurationException(AsyncArcticException):
     pass
+
+
+class ChunkStoreOutstandingTransaction(ArcticException):
+    pass
+
