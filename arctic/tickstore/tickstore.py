@@ -215,9 +215,10 @@ class TickStore(object):
             # when we've seen the first such chunk
             try:
                 for candidate in result:
-                    chunk = self._collection.find_one({'s': candidate['start'], 'sy': candidate['_id']}, {'e': 1})
-                    if chunk['e'].replace(tzinfo=mktz('UTC')) >= start:
-                        start_range['$gte'] = candidate['start'].replace(tzinfo=mktz('UTC'))
+                    chunk = self._collection.find_one({'s': candidate['start'], 'sy': candidate['_id']},
+                                                      {'s': 1, 'e': 1})
+                    if chunk[END].replace(tzinfo=mktz('UTC')) >= start:
+                        start_range['$gte'] = chunk[START].replace(tzinfo=mktz('UTC'))
                         break
             except StopIteration:
                 pass
